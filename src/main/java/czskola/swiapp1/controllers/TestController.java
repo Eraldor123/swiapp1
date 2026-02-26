@@ -4,12 +4,14 @@ import czskola.swiapp1.entities.User;
 import czskola.swiapp1.repositories.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/test")
+@CrossOrigin(origins = "http://localhost:5173")
 public class TestController {
 
     @Autowired
@@ -18,7 +20,7 @@ public class TestController {
     @GetMapping
     public String test() {
         User user = new User();
-        user.setUsername("testuser");
+        user.setUsername("testuser" + System.currentTimeMillis());
         user.setPassword("password123");
         user.setAge(25);
         user.setEmail("test@example.com");
