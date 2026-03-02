@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import java.util.List;
 @RestController
 @RequestMapping("/api/test")
 @CrossOrigin(origins = "http://localhost:5173")
@@ -19,20 +19,36 @@ public class TestController {
 
     @GetMapping
     public String test() {
+        //createTestUser(); // Odkomentuj pro vytvoření testovacího uživatele při každém volání endpointu
+
+        return "Hello from Test Controller";
+    }
+
+    private void createTestUser() {
         User user = new User();
         user.setUsername("testuser" + System.currentTimeMillis());
         user.setPassword("password123");
         user.setAge(25);
         user.setEmail("test@example.com");
-        user.setFirstName("John");
-        user.setLastName("Doe");
+        user.setFirstName("Honza");
+        user.setLastName("Lojza");
 
         userRepository.save(user);
-
-        return "Hello from Test Controller";
-
-
     }
+
+    @GetMapping("/users")
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @GetMapping("/users/createtest")
+    public String createTestUserEndpoint() {
+        createTestUser();
+        return "Test user created successfully!";
+    }
+
+
 }
+
 
 
