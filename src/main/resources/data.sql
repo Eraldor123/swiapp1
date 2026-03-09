@@ -6,3 +6,12 @@ INSERT INTO users  (id, username, password, age, email, first_name, last_name) V
                                                                                    ('550e8400-e29b-41d4-a716-446655440004', 'alice_johnson', '$2a$10$slYQmyNdGzin7olVN3p5be4nxQjV2d9dGvQGAlt28WjLdMZGd7rOG', 31, 'alice.johnson@example.com', 'Alice', 'Johnson'),
                                                                                    ('550e8400-e29b-41d4-a716-446655440005', 'charlie_brown', '$2a$10$slYQmyNdGzin7olVN3p5be4nxQjV2d9dGvQGAlt28WjLdMZGd7rOG', 26, 'charlie.brown@example.com', 'Charlie', 'Brown')
     ON CONFLICT (id) DO NOTHING;
+
+-- This SQL script is used to initialize the database with sample data for the 'tasks' table. It inserts multiple task records with unique id, title, description, is_completed and link to certain user. Each user can have more tasks, it's one to many. The 'ON CONFLICT (id) DO NOTHING' clause ensures that if a record with the same ID already exists, the insert operation will be skipped for that record, preventing duplicate entries.
+INSERT INTO tasks (id, title, description, is_completed, user_id) VALUES
+                                                                           ('660e8400-e29b-41d4-a716-446655440001', 'Task 1', 'Description for Task 1', false, '550e8400-e29b-41d4-a716-446655440001'),
+                                                                           ('660e8400-e29b-41d4-a716-446655440002', 'Task 2', 'Description for Task 2', true, '550e8400-e29b-41d4-a716-446655440001'),
+                                                                           ('660e8400-e29b-41d4-a716-446655440003', 'Task 3', 'Description for Task 3', false, '550e8400-e29b-41d4-a716-446655440002'),
+                                                                           ('660e8400-e29b-41d4-a716-446655440004', 'Task 4', 'Description for Task 4', true, '550e8400-e29b-41d4-a716-446655440002'),
+                                                                           ('660e8400-e29b-41d4-a716-446655440005', 'Task 5', 'Description for Task 5', false, '550e8400-e29b-41d4-a716-446655440003')
+    ON CONFLICT (id) DO NOTHING;
